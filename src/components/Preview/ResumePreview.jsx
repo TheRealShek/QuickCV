@@ -4,7 +4,7 @@ import ModernTemplate from './templates/ModernTemplate'
 import MinimalTemplate from './templates/MinimalTemplate'
 
 const ResumePreview = ({ resumeData, template }) => {
-  const { fontSize = 14 } = resumeData
+  const { fontSize = 14, boldText = false } = resumeData
 
   const getTemplate = () => {
     switch (template) {
@@ -39,7 +39,8 @@ const ResumePreview = ({ resumeData, template }) => {
             minHeight: '11in',
             margin: '0 auto',
             boxShadow: '0 0 10px rgba(0,0,0,0.1)',
-            fontSize: `${fontSize}px`
+            fontSize: `${fontSize}px`,
+            fontWeight: boldText ? 'bold' : 'normal'
           }}
         >
           {getTemplate()}

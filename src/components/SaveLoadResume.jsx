@@ -14,7 +14,8 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
       },
       settings: {
         template: resumeData.template || 'traditional',
-        fontSize: resumeData.fontSize || 14
+        fontSize: resumeData.fontSize || 14,
+        boldText: resumeData.boldText || false
       },
       contact: {
         name: resumeData.contact.name || '',
@@ -102,6 +103,7 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
         const loadedData = {
           template: jsonData.settings.template || 'traditional',
           fontSize: jsonData.settings.fontSize || 14,
+          boldText: jsonData.settings.boldText || false,
           contact: {
             name: jsonData.contact.name || '',
             email: jsonData.contact.email || '',

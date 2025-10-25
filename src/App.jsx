@@ -14,6 +14,7 @@ import { FileText, ChevronUp, ChevronDown } from 'lucide-react'
 function App() {
   const [template, setTemplate] = useState('traditional')
   const [fontSize, setFontSize] = useState(14)
+  const [boldText, setBoldText] = useState(false)
   
   const [contact, setContact] = useState({
     name: '',
@@ -145,6 +146,7 @@ function App() {
     projects,
     sectionOrder,
     fontSize,
+    boldText,
     template
   }
 
@@ -152,6 +154,7 @@ function App() {
     // Update all state with loaded data
     setTemplate(loadedData.template)
     setFontSize(loadedData.fontSize)
+    setBoldText(loadedData.boldText || false)
     setContact(loadedData.contact)
     setSummary(loadedData.summary)
     setExperience(loadedData.experience)
@@ -191,6 +194,17 @@ function App() {
                 />
                 <span className="text-sm text-gray-600">px</span>
               </div>
+              <button
+                onClick={() => setBoldText(!boldText)}
+                className={`px-3 py-2 rounded-md text-sm font-bold transition-colors ${
+                  boldText 
+                    ? 'bg-blue-600 text-white hover:bg-blue-700' 
+                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                }`}
+                title={boldText ? "Disable bold text" : "Enable bold text"}
+              >
+                B
+              </button>
               <div className="h-8 w-px bg-gray-300"></div>
               <SaveLoadResume 
                 resumeData={resumeData} 

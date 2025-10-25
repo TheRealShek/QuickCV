@@ -20,7 +20,14 @@ const ModernTemplate = ({ resumeData }) => {
               <div key={exp.id} className="mb-4 pl-4 border-l-2 border-gray-300">
                 <div className="flex justify-between items-start mb-1">
                   <div>
-                    <h3 className="font-bold text-gray-900">{exp.position}</h3>
+                    <h3 className="font-bold text-gray-900">
+                      {exp.position}
+                      {exp.link && (
+                        <a href={exp.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                          🔗
+                        </a>
+                      )}
+                    </h3>
                     <div className="text-gray-600" style={{ fontSize: `${textSize}px` }}>
                       {exp.company}{exp.location && ` • ${exp.location}`}
                     </div>
@@ -77,16 +84,30 @@ const ModernTemplate = ({ resumeData }) => {
             {projects.map((proj) => (
               <div key={proj.id} className="mb-3 pl-4 border-l-2 border-gray-300">
                 <div className="flex justify-between items-start mb-1">
-                  <h3 className="font-bold text-gray-900">{proj.name}</h3>
+                  <h3 className="font-bold text-gray-900">
+                    {proj.name}
+                    {proj.link && (
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                        🔗
+                      </a>
+                    )}
+                  </h3>
                   <span className="text-gray-500 whitespace-nowrap ml-4" style={{ fontSize: `${textSize}px` }}>
                     {proj.startDate} - {proj.endDate}
                   </span>
                 </div>
                 {proj.description && <p className="text-gray-700 mb-1" style={{ fontSize: `${textSize}px` }}>{proj.description}</p>}
                 {proj.technologies && (
-                  <p className="text-gray-600" style={{ fontSize: `${textSize}px` }}>
+                  <p className="text-gray-600 mb-1" style={{ fontSize: `${textSize}px` }}>
                     <span className="font-semibold">Tech:</span> {proj.technologies}
                   </p>
+                )}
+                {proj.bullets && proj.bullets.length > 0 && (
+                  <ul className="list-disc ml-5 mt-1 text-gray-700">
+                    {proj.bullets.filter(b => b.trim()).map((bullet, idx) => (
+                      <li key={idx} style={{ fontSize: `${textSize}px` }}>{bullet}</li>
+                    ))}
+                  </ul>
                 )}
               </div>
             ))}
@@ -127,10 +148,10 @@ const ModernTemplate = ({ resumeData }) => {
             {contact.location && <div>📍 {contact.location}</div>}
           </div>
           <div>
-            {contact.linkedin && <div>🔗 LinkedIn: {contact.linkedin}</div>}
-            {contact.github && <div>💻 GitHub: {contact.github}</div>}
-            {contact.portfolio && <div>🌐 Portfolio: {contact.portfolio}</div>}
-            {contact.twitter && <div>🐦 Twitter: {contact.twitter}</div>}
+            {contact.linkedin && <div>🔗 LinkedIn: <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.linkedin}</a></div>}
+            {contact.github && <div>💻 GitHub: <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.github}</a></div>}
+            {contact.portfolio && <div>🌐 Portfolio: <a href={contact.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.portfolio}</a></div>}
+            {contact.twitter && <div>🐦 Twitter: <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.twitter}</a></div>}
           </div>
         </div>
       </div>

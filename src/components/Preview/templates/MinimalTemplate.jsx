@@ -17,7 +17,14 @@ const MinimalTemplate = ({ resumeData }) => {
               <div key={exp.id} className="mb-4">
                 <div className="flex justify-between items-baseline mb-1">
                   <div>
-                    <span className="font-semibold text-gray-900">{exp.position}</span>
+                    <span className="font-semibold text-gray-900">
+                      {exp.position}
+                      {exp.link && (
+                        <a href={exp.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${microSize}px`, fontWeight: 'normal' }}>
+                          🔗
+                        </a>
+                      )}
+                    </span>
                     <span className="text-gray-600"> • {exp.company}</span>
                     {exp.location && <span className="text-gray-500" style={{ fontSize: `${textSize}px` }}> • {exp.location}</span>}
                   </div>
@@ -61,12 +68,26 @@ const MinimalTemplate = ({ resumeData }) => {
             {projects.map((proj) => (
               <div key={proj.id} className="mb-3">
                 <div className="flex justify-between items-baseline mb-1">
-                  <span className="font-semibold text-gray-900">{proj.name}</span>
+                  <span className="font-semibold text-gray-900">
+                    {proj.name}
+                    {proj.link && (
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${microSize}px`, fontWeight: 'normal' }}>
+                        🔗
+                      </a>
+                    )}
+                  </span>
                   <span className="text-gray-500" style={{ fontSize: `${microSize}px` }}>{proj.startDate} - {proj.endDate}</span>
                 </div>
                 {proj.description && <p className="text-gray-700 mb-1" style={{ fontSize: `${textSize}px` }}>{proj.description}</p>}
                 {proj.technologies && (
-                  <p className="text-gray-600" style={{ fontSize: `${microSize}px` }}>{proj.technologies}</p>
+                  <p className="text-gray-600 mb-1" style={{ fontSize: `${microSize}px` }}>{proj.technologies}</p>
+                )}
+                {proj.bullets && proj.bullets.length > 0 && (
+                  <ul className="list-disc ml-5 mt-1 text-gray-700">
+                    {proj.bullets.filter(b => b.trim()).map((bullet, idx) => (
+                      <li key={idx} style={{ fontSize: `${textSize}px` }}>{bullet}</li>
+                    ))}
+                  </ul>
                 )}
               </div>
             ))}
@@ -102,13 +123,13 @@ const MinimalTemplate = ({ resumeData }) => {
         </div>
         {(contact.linkedin || contact.github || contact.portfolio || contact.twitter) && (
           <div className="text-gray-600 space-x-2 mt-1" style={{ fontSize: `${fontSize * 0.71}px` }}>
-            {contact.linkedin && <span>LinkedIn: {contact.linkedin}</span>}
+            {contact.linkedin && <span>LinkedIn: <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.linkedin}</a></span>}
             {contact.github && contact.linkedin && <span>|</span>}
-            {contact.github && <span>GitHub: {contact.github}</span>}
+            {contact.github && <span>GitHub: <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.github}</a></span>}
             {contact.portfolio && (contact.linkedin || contact.github) && <span>|</span>}
-            {contact.portfolio && <span>Portfolio: {contact.portfolio}</span>}
+            {contact.portfolio && <span>Portfolio: <a href={contact.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.portfolio}</a></span>}
             {contact.twitter && (contact.linkedin || contact.github || contact.portfolio) && <span>|</span>}
-            {contact.twitter && <span>Twitter: {contact.twitter}</span>}
+            {contact.twitter && <span>Twitter: <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.twitter}</a></span>}
           </div>
         )}
       </div>

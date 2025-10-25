@@ -36,22 +36,31 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
         current: exp.current || false,
         bullets: exp.bullets.filter(b => b.trim())
       })),
-      education: resumeData.education.map(edu => ({
-        school: edu.school,
-        degree: edu.degree,
-        field: edu.field,
-        location: edu.location,
-        startDate: edu.startDate,
-        endDate: edu.endDate,
-        gpa: edu.gpa || ''
-      })),
+      education: resumeData.education.map(edu => {
+        const eduData = {
+          school: edu.school,
+          degree: edu.degree,
+          field: edu.field,
+          location: edu.location,
+          startDate: edu.startDate,
+          endDate: edu.endDate,
+          gpa: edu.gpa || ''
+        };
+        // Preserve any additional fields that might exist
+        if (edu.link) eduData.link = edu.link;
+        if (edu.description) eduData.description = edu.description;
+        if (edu.achievements) eduData.achievements = edu.achievements;
+        return eduData;
+      }),
       skills: resumeData.skills.map(skill => skill.name).filter(s => s.trim()),
       projects: resumeData.projects.map(proj => ({
         name: proj.name,
         description: proj.description,
         technologies: proj.technologies,
+        link: proj.link || '',
         startDate: proj.startDate,
-        endDate: proj.endDate
+        endDate: proj.endDate,
+        bullets: proj.bullets ? proj.bullets.filter(b => b.trim()) : []
       })),
       sectionOrder: resumeData.sectionOrder || ['experience', 'education', 'skills', 'projects']
     }
@@ -114,16 +123,23 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
             current: exp.current || false,
             bullets: exp.bullets || ['']
           })),
-          education: (jsonData.education || []).map((edu, idx) => ({
-            id: Date.now() + idx + 1000,
-            school: edu.school || '',
-            degree: edu.degree || '',
-            field: edu.field || '',
-            location: edu.location || '',
-            startDate: edu.startDate || '',
-            endDate: edu.endDate || '',
-            gpa: edu.gpa || ''
-          })),
+          education: (jsonData.education || []).map((edu, idx) => {
+            const eduData = {
+              id: Date.now() + idx + 1000,
+              school: edu.school || '',
+              degree: edu.degree || '',
+              field: edu.field || '',
+              location: edu.location || '',
+              startDate: edu.startDate || '',
+              endDate: edu.endDate || '',
+              gpa: edu.gpa || edu.cgpa || ''
+            };
+            // Preserve any additional fields from JSON
+            if (edu.link) eduData.link = edu.link;
+            if (edu.description) eduData.description = edu.description;
+            if (edu.achievements) eduData.achievements = edu.achievements;
+            return eduData;
+          }),
           skills: (jsonData.skills || []).map((skillName, idx) => ({
             id: Date.now() + idx + 2000,
             name: skillName
@@ -133,8 +149,10 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
             name: proj.name || '',
             description: proj.description || '',
             technologies: proj.technologies || '',
+            link: proj.link || '',
             startDate: proj.startDate || '',
-            endDate: proj.endDate || ''
+            endDate: proj.endDate || '',
+            bullets: proj.bullets || ['']
           })),
           sectionOrder: jsonData.sectionOrder || ['experience', 'education', 'skills', 'projects']
         }

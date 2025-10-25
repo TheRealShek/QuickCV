@@ -15,7 +15,14 @@ const TraditionalTemplate = ({ resumeData }) => {
             {experience.map((exp) => (
               <div key={exp.id} className="mb-4">
                 <div className="flex justify-between items-baseline">
-                  <h3 className="font-bold">{exp.position}</h3>
+                  <h3 className="font-bold">
+                    {exp.position}
+                    {exp.link && (
+                      <a href={exp.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                        🔗
+                      </a>
+                    )}
+                  </h3>
                   <span style={{ fontSize: `${textSize}px` }}>{exp.startDate} - {exp.endDate}</span>
                 </div>
                 <div className="italic mb-1" style={{ fontSize: `${textSize}px` }}>
@@ -57,12 +64,26 @@ const TraditionalTemplate = ({ resumeData }) => {
             {projects.map((proj) => (
               <div key={proj.id} className="mb-3">
                 <div className="flex justify-between items-baseline">
-                  <h3 className="font-bold">{proj.name}</h3>
+                  <h3 className="font-bold">
+                    {proj.name}
+                    {proj.link && (
+                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                        🔗
+                      </a>
+                    )}
+                  </h3>
                   <span style={{ fontSize: `${textSize}px` }}>{proj.startDate} - {proj.endDate}</span>
                 </div>
                 {proj.description && <p className="mb-1" style={{ fontSize: `${textSize}px` }}>{proj.description}</p>}
                 {proj.technologies && (
-                  <p className="italic" style={{ fontSize: `${textSize}px` }}>Technologies: {proj.technologies}</p>
+                  <p className="italic mb-1" style={{ fontSize: `${textSize}px` }}>Technologies: {proj.technologies}</p>
+                )}
+                {proj.bullets && proj.bullets.length > 0 && (
+                  <ul className="list-disc ml-5 mt-1">
+                    {proj.bullets.filter(b => b.trim()).map((bullet, idx) => (
+                      <li key={idx} style={{ fontSize: `${textSize}px` }}>{bullet}</li>
+                    ))}
+                  </ul>
                 )}
               </div>
             ))}
@@ -97,13 +118,13 @@ const TraditionalTemplate = ({ resumeData }) => {
           {contact.location && <span>{contact.location}</span>}
         </div>
         <div className="space-x-3 mt-1" style={{ fontSize: `${fontSize * 0.86}px` }}>
-          {contact.linkedin && <span>LinkedIn: {contact.linkedin}</span>}
+          {contact.linkedin && <span>LinkedIn: <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.linkedin}</a></span>}
           {contact.github && contact.linkedin && <span>•</span>}
-          {contact.github && <span>GitHub: {contact.github}</span>}
+          {contact.github && <span>GitHub: <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.github}</a></span>}
           {contact.portfolio && (contact.linkedin || contact.github) && <span>•</span>}
-          {contact.portfolio && <span>Portfolio: {contact.portfolio}</span>}
+          {contact.portfolio && <span>Portfolio: <a href={contact.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.portfolio}</a></span>}
           {contact.twitter && (contact.linkedin || contact.github || contact.portfolio) && <span>•</span>}
-          {contact.twitter && <span>Twitter: {contact.twitter}</span>}
+          {contact.twitter && <span>Twitter: <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:underline">{contact.twitter}</a></span>}
         </div>
       </div>
 

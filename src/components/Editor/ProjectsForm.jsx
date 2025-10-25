@@ -8,8 +8,10 @@ const ProjectsForm = ({ projects, setProjects, customHeader }) => {
       name: '',
       description: '',
       technologies: '',
+      link: '',
       startDate: '',
-      endDate: ''
+      endDate: '',
+      bullets: ['']
     }])
   }
 
@@ -20,6 +22,32 @@ const ProjectsForm = ({ projects, setProjects, customHeader }) => {
   const updateProject = (id, field, value) => {
     setProjects(projects.map(proj => 
       proj.id === id ? { ...proj, [field]: value } : proj
+    ))
+  }
+
+  const addBullet = (id) => {
+    setProjects(projects.map(proj =>
+      proj.id === id ? { ...proj, bullets: [...proj.bullets, ''] } : proj
+    ))
+  }
+
+  const removeBullet = (id, bulletIndex) => {
+    setProjects(projects.map(proj =>
+      proj.id === id ? {
+        ...proj,
+        bullets: proj.bullets.filter((_, idx) => idx !== bulletIndex)
+      } : proj
+    ))
+  }
+
+  const updateBullet = (id, bulletIndex, value) => {
+    setProjects(projects.map(proj =>
+      proj.id === id ? {
+        ...proj,
+        bullets: proj.bullets.map((bullet, idx) =>
+          idx === bulletIndex ? value : bullet
+        )
+      } : proj
     ))
   }
 
@@ -102,21 +130,66 @@ const ProjectsForm = ({ projects, setProjects, customHeader }) => {
                 <textarea
                   value={proj.description}
                   onChange={(e) => updateProject(proj.id, 'description', e.target.value)}
-                  placeholder="Brief description of the project and your role..."
-                  rows={3}
+                  placeholder="Brief overview of the project..."
+                  rows={2}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
                 />
               </div>
 
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Technologies Used</label>
+                  <input
+                    type="text"
+                    value={proj.technologies}
+                    onChange={(e) => updateProject(proj.id, 'technologies', e.target.value)}
+                    placeholder="React, Node.js, MongoDB, AWS"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">Project Link (Optional)</label>
+                  <input
+                    type="text"
+                    value={proj.link || ''}
+                    onChange={(e) => updateProject(proj.id, 'link', e.target.value)}
+                    placeholder="https://github.com/username/repo"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  />
+                </div>
+              </div>
+
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Technologies Used</label>
-                <input
-                  type="text"
-                  value={proj.technologies}
-                  onChange={(e) => updateProject(proj.id, 'technologies', e.target.value)}
-                  placeholder="React, Node.js, MongoDB, AWS"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
+                <label className="block text-sm font-medium text-gray-700 mb-1">Key Highlights</label>
+                <div className="space-y-2">
+                  {proj.bullets && proj.bullets.map((bullet, bulletIndex) => (
+                    <div key={bulletIndex} className="flex gap-2">
+                      <input
+                        type="text"
+                        value={bullet}
+                        onChange={(e) => updateBullet(proj.id, bulletIndex, e.target.value)}
+                        placeholder="Achievement or key feature..."
+                        className="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      />
+                      {proj.bullets.length > 1 && (
+                        <button
+                          onClick={() => removeBullet(proj.id, bulletIndex)}
+                          className="p-2 text-red-500 hover:text-red-700"
+                          title="Remove bullet"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
+                      )}
+                    </div>
+                  ))}
+                  <button
+                    onClick={() => addBullet(proj.id)}
+                    className="flex items-center gap-1 px-2 py-1 text-sm text-blue-600 hover:text-blue-700"
+                  >
+                    <Plus className="w-3 h-3" />
+                    Add Highlight
+                  </button>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">

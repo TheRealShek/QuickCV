@@ -74,14 +74,24 @@
       "description": "Built a full-stack e-commerce platform with payment integration and real-time inventory management",
       "technologies": "React, Node.js, MongoDB, Stripe API",
       "startDate": "Mar 2023",
-      "endDate": "Aug 2023"
+      "endDate": "Aug 2023",
+      "bullets": [
+        "Implemented secure payment processing with Stripe integration",
+        "Built real-time inventory tracking system using WebSockets",
+        "Achieved 99.9% uptime with comprehensive error handling"
+      ]
     },
     {
       "name": "Task Management App",
       "description": "Developed a collaborative task management application with real-time updates",
       "technologies": "Vue.js, Firebase, Tailwind CSS",
       "startDate": "Jan 2023",
-      "endDate": "Feb 2023"
+      "endDate": "Feb 2023",
+      "bullets": [
+        "Designed intuitive drag-and-drop interface for task organization",
+        "Integrated Firebase for real-time collaboration features",
+        "Deployed to production serving 500+ active users"
+      ]
     }
   ],
   "sectionOrder": [

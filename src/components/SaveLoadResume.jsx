@@ -10,7 +10,7 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
       metadata: {
         version: '1.0',
         createdAt: new Date().toISOString(),
-        appName: 'Resumake'
+        appName: 'QuickCV'
       },
       settings: {
         template: resumeData.template || 'traditional',
@@ -163,8 +163,6 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
         
         // Reset file input
         event.target.value = ''
-        
-        alert('Resume loaded successfully!')
       } catch (error) {
         console.error('Error loading resume:', error)
         alert('Error loading resume file. Please check the file format.')

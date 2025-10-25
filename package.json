@@ -1,7 +1,26 @@
 {
-  "name": "resumake",
-  "private": true,
+  "name": "quickcv-resume-builder",
+  "private": false,
   "version": "1.0.0",
+  "description": "A modern, ATS-friendly resume builder with live preview and PDF export. Built with React, Vite, and Tailwind CSS.",
+  "author": "TheRealShek",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TheRealShek/QuickCV"
+  },
+  "keywords": [
+    "resume",
+    "resume-builder",
+    "cv",
+    "cv-builder",
+    "pdf-export",
+    "react",
+    "vite",
+    "tailwind",
+    "ats-friendly",
+    "resume-template"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",

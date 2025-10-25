@@ -172,7 +172,7 @@ function App() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FileText className="w-8 h-8 text-blue-600" />
-              <h1 className="text-2xl font-bold text-gray-900">Resumake</h1>
+              <h1 className="text-2xl font-bold text-gray-900">QuickCV</h1>
             </div>
             <div className="flex items-center gap-4">
               <TemplateSelector 

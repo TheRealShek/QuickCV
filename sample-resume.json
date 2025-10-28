@@ -27,6 +27,7 @@
       "startDate": "Jan 2021",
       "endDate": "Present",
       "current": true,
+      "link": "https://techcompany.com",
       "bullets": [
         "Led development of microservices architecture serving 1M+ users",
         "Improved application performance by 40% through code optimization",
@@ -40,6 +41,7 @@
       "startDate": "Jun 2019",
       "endDate": "Dec 2020",
       "current": false,
+      "link": "",
       "bullets": [
         "Built and deployed RESTful APIs using Node.js and Express",
         "Developed responsive front-end interfaces with React",
@@ -55,7 +57,8 @@
       "location": "Berkeley, CA",
       "startDate": "2015",
       "endDate": "2019",
-      "gpa": "3.8"
+      "gpa": "3.8",
+      "coursework": "Data Structures, Algorithms, Database Systems, Machine Learning, Operating Systems, Computer Networks"
     }
   ],
   "skills": [

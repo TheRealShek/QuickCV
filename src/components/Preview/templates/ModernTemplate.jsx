@@ -64,6 +64,11 @@ const ModernTemplate = ({ resumeData }) => {
                       {edu.school}{edu.location && `, ${edu.location}`}
                       {edu.gpa && ` • CGPA: ${edu.gpa}`}
                     </div>
+                    {edu.coursework && (
+                      <div style={{ fontSize: `${textSize}px` }} className="mt-1 italic text-gray-600">
+                        Relevant Coursework: {edu.coursework}
+                      </div>
+                    )}
                   </div>
                   <span className="text-gray-500 whitespace-nowrap ml-4" style={{ fontSize: `${textSize}px` }}>
                     {edu.startDate} - {edu.endDate}
@@ -121,13 +126,9 @@ const ModernTemplate = ({ resumeData }) => {
               <span className="w-1 bg-blue-600 mr-3" style={{ height: `${barHeight}px` }}></span>
               SKILLS
             </h2>
-            <div className="flex flex-wrap gap-2 pl-4">
-              {skills.map(skill => skill.name).filter(n => n.trim()).map((skillName, idx) => (
-                <span key={idx} className="bg-gray-100 px-3 py-1 rounded-full text-gray-700" style={{ fontSize: `${textSize}px` }}>
-                  {skillName}
-                </span>
-              ))}
-            </div>
+            <p className="pl-4 text-gray-700" style={{ fontSize: `${textSize}px` }}>
+              {skills.map(skill => skill.name).filter(n => n.trim()).join(', ')}
+            </p>
           </div>
         )
       

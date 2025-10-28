@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Download } from 'lucide-react'
-import html2pdf from 'html2pdf.js'
 
 const PDFExport = ({ resumeData, template }) => {
   const [isExporting, setIsExporting] = useState(false)
@@ -9,47 +8,91 @@ const PDFExport = ({ resumeData, template }) => {
     setIsExporting(true)
     
     try {
-      const element = document.getElementById('resume-preview')
+      const resumeElement = document.querySelector('#resume-preview > div > div')
       
-      if (!element) {
+      if (!resumeElement) {
         alert('Resume preview not found')
         setIsExporting(false)
         return
       }
 
-      // Clone the element to avoid modifying the original
-      const clonedElement = element.cloneNode(true)
+      const printWindow = window.open('', '_blank', 'width=800,height=600')
       
-      // Get the actual resume content (the inner div with width 8.5in)
-      const resumeContent = clonedElement.querySelector('div[style*="8.5in"]')
-      
-      if (!resumeContent) {
-        alert('Resume content not found')
+      if (!printWindow) {
+        alert('Please allow popups to export PDF')
         setIsExporting(false)
         return
       }
 
-      const opt = {
-        margin: 0,
-        filename: `resume-${resumeData.contact.name || 'draft'}-${Date.now()}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2,
-          useCORS: true,
-          letterRendering: true
-        },
-        jsPDF: { 
-          unit: 'in', 
-          format: 'letter', 
-          orientation: 'portrait'
-        }
-      }
+      const styles = Array.from(document.styleSheets)
+        .map(styleSheet => {
+          try {
+            return Array.from(styleSheet.cssRules)
+              .map(rule => rule.cssText)
+              .join('\n')
+          } catch (e) {
+            const linkTag = Array.from(document.querySelectorAll('link[rel="stylesheet"]'))
+              .find(link => link.sheet === styleSheet)
+            return linkTag ? `@import url("${linkTag.href}");` : ''
+          }
+        })
+        .join('\n')
 
-      await html2pdf().set(opt).from(resumeContent).save()
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <meta charset="UTF-8">
+            <title>Resume - ${resumeData.contact?.name || 'Draft'}</title>
+            <style>
+              ${styles}
+              
+              @page {
+                size: letter;
+                margin: 0;
+              }
+              
+              body {
+                margin: 0;
+                padding: 0;
+                width: 8.5in;
+                min-height: 11in;
+                background: white;
+              }
+              
+              @media print {
+                body {
+                  width: 8.5in;
+                  margin: 0;
+                  padding: 0;
+                }
+                
+                .mb-6, .mb-4, .mb-3 {
+                  page-break-inside: avoid;
+                }
+              }
+            </style>
+          </head>
+          <body>
+            ${resumeElement.outerHTML}
+          </body>
+        </html>
+      `)
+      
+      printWindow.document.close()
+      
+      await new Promise(resolve => setTimeout(resolve, 500))
+      
+      printWindow.focus()
+      printWindow.print()
+      
+      setTimeout(() => {
+        printWindow.close()
+      }, 1000)
       
     } catch (error) {
       console.error('Error exporting PDF:', error)
-      alert('Failed to export PDF. Please try again.')
+      alert(`Failed to export PDF: ${error.message}`)
     } finally {
       setIsExporting(false)
     }

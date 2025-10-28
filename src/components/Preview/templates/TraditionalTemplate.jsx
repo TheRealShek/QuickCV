@@ -52,6 +52,11 @@ const TraditionalTemplate = ({ resumeData }) => {
                   {edu.school}{edu.location && `, ${edu.location}`}
                   {edu.gpa && ` • CGPA: ${edu.gpa}`}
                 </div>
+                {edu.coursework && (
+                  <div style={{ fontSize: `${textSize}px` }} className="mt-1 italic text-gray-700">
+                    Relevant Coursework: {edu.coursework}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -106,7 +111,7 @@ const TraditionalTemplate = ({ resumeData }) => {
   }
 
   return (
-    <div className="bg-white p-8 text-gray-900" style={{ fontFamily: 'Georgia, serif' }}>
+    <div className="bg-white p-8 text-gray-900" style={{ fontFamily: '"Times New Roman", Times, serif', WebkitFontSmoothing: 'antialiased', MozOsxFontSmoothing: 'grayscale' }}>
       {/* Header */}
       <div className="text-center border-b-2 border-gray-800 pb-4 mb-6">
         <h1 className="font-bold mb-2" style={{ fontSize: `${fontSize * 1.71}px` }}>{contact.name || 'Your Name'}</h1>

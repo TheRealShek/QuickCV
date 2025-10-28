@@ -35,6 +35,7 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
         startDate: exp.startDate,
         endDate: exp.endDate,
         current: exp.current || false,
+        link: exp.link || '',
         bullets: exp.bullets.filter(b => b.trim())
       })),
       education: resumeData.education.map(edu => {
@@ -45,7 +46,8 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
           location: edu.location,
           startDate: edu.startDate,
           endDate: edu.endDate,
-          gpa: edu.gpa || ''
+          gpa: edu.gpa || '',
+          coursework: edu.coursework || ''
         };
         // Preserve any additional fields that might exist
         if (edu.link) eduData.link = edu.link;
@@ -123,6 +125,7 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
             startDate: exp.startDate || '',
             endDate: exp.endDate || '',
             current: exp.current || false,
+            link: exp.link || '',
             bullets: exp.bullets || ['']
           })),
           education: (jsonData.education || []).map((edu, idx) => {
@@ -134,7 +137,8 @@ const SaveLoadResume = ({ resumeData, onLoadResume }) => {
               location: edu.location || '',
               startDate: edu.startDate || '',
               endDate: edu.endDate || '',
-              gpa: edu.gpa || edu.cgpa || ''
+              gpa: edu.gpa || edu.cgpa || '',
+              coursework: edu.coursework || ''
             };
             // Preserve any additional fields from JSON
             if (edu.link) eduData.link = edu.link;

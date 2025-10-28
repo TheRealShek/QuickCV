@@ -56,6 +56,11 @@ const MinimalTemplate = ({ resumeData }) => {
                   </div>
                   <span className="text-gray-500" style={{ fontSize: `${microSize}px` }}>{edu.startDate} - {edu.endDate}</span>
                 </div>
+                {edu.coursework && (
+                  <div style={{ fontSize: `${textSize}px` }} className="text-gray-600 italic mt-1">
+                    Relevant Coursework: {edu.coursework}
+                  </div>
+                )}
               </div>
             ))}
           </div>

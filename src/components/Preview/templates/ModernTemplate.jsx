@@ -126,9 +126,11 @@ const ModernTemplate = ({ resumeData }) => {
               <span className="w-1 bg-blue-600 mr-3" style={{ height: `${barHeight}px` }}></span>
               SKILLS
             </h2>
-            <p className="pl-4 text-gray-700" style={{ fontSize: `${textSize}px` }}>
-              {skills.map(skill => skill.name).filter(n => n.trim()).join(', ')}
-            </p>
+            <ul className="pl-4 text-gray-700 list-none" style={{ fontSize: `${textSize}px` }}>
+              {skills.filter(s => s.name.trim()).map((skill, idx) => (
+                <li key={idx} className="mb-1">• {skill.name}</li>
+              ))}
+            </ul>
           </div>
         )
       

@@ -103,9 +103,11 @@ const MinimalTemplate = ({ resumeData }) => {
         return skills.length > 0 && (
           <div key="skills" className="mb-6">
             <h2 className="font-semibold uppercase tracking-wider mb-2 text-gray-800" style={{ fontSize: `${headingSize}px` }}>Skills</h2>
-            <p className="text-gray-700" style={{ fontSize: `${textSize}px` }}>
-              {skills.map(s => s.name).filter(n => n.trim()).join(', ')}
-            </p>
+            <ul className="text-gray-700 list-none" style={{ fontSize: `${textSize}px` }}>
+              {skills.filter(s => s.name.trim()).map((skill, idx) => (
+                <li key={idx} className="mb-1">• {skill.name}</li>
+              ))}
+            </ul>
           </div>
         )
       

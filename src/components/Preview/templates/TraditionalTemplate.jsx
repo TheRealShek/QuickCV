@@ -99,9 +99,11 @@ const TraditionalTemplate = ({ resumeData }) => {
         return skills.length > 0 && (
           <div key="skills" className="mb-6">
             <h2 className="font-bold uppercase border-b border-gray-400 mb-2" style={{ fontSize: `${headingSize}px` }}>Skills</h2>
-            <p style={{ fontSize: `${textSize}px` }}>
-              {skills.map(s => s.name).filter(n => n.trim()).join(' • ')}
-            </p>
+            <ul className="list-none" style={{ fontSize: `${textSize}px` }}>
+              {skills.filter(s => s.name.trim()).map((skill, idx) => (
+                <li key={idx} className="mb-1">• {skill.name}</li>
+              ))}
+            </ul>
           </div>
         )
       

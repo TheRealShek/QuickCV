@@ -40,6 +40,7 @@ const SkillsForm = ({ skills, setSkills, customHeader }) => {
       <div className="space-y-2">
         {skills.map((skill, index) => (
           <div key={skill.id} className="flex gap-2">
+            <span className="text-gray-400 mt-2">•</span>
             <input
               type="text"
               value={skill.name}

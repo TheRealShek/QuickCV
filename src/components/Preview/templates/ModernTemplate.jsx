@@ -3,6 +3,12 @@ import React from 'react'
 const ModernTemplate = ({ resumeData }) => {
   const { contact, summary, experience, education, skills, projects, sectionOrder = ['experience', 'education', 'skills', 'projects'], fontSize = 14 } = resumeData
 
+  const ensureHttps = (url) => {
+    if (!url) return ''
+    if (url.startsWith('http://') || url.startsWith('https://')) return url
+    return `https://${url}`
+  }
+
   const renderSection = (sectionName) => {
     const headingSize = fontSize * 1.43
     const textSize = fontSize * 0.86
@@ -23,7 +29,7 @@ const ModernTemplate = ({ resumeData }) => {
                     <h3 className="font-bold text-gray-900">
                       {exp.position}
                       {exp.link && (
-                        <a href={exp.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                        <a href={ensureHttps(exp.link)} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
                           🔗
                         </a>
                       )}
@@ -92,7 +98,7 @@ const ModernTemplate = ({ resumeData }) => {
                   <h3 className="font-bold text-gray-900">
                     {proj.name}
                     {proj.link && (
-                      <a href={proj.link} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
+                      <a href={ensureHttps(proj.link)} target="_blank" rel="noopener noreferrer" className="ml-2 text-blue-600 hover:underline" style={{ fontSize: `${textSize}px`, fontWeight: 'normal' }}>
                         🔗
                       </a>
                     )}
@@ -151,10 +157,10 @@ const ModernTemplate = ({ resumeData }) => {
             {contact.location && <div>📍 {contact.location}</div>}
           </div>
           <div>
-            {contact.linkedin && <div>🔗 LinkedIn: <a href={contact.linkedin} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.linkedin}</a></div>}
-            {contact.github && <div>💻 GitHub: <a href={contact.github} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.github}</a></div>}
-            {contact.portfolio && <div>🌐 Portfolio: <a href={contact.portfolio} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.portfolio}</a></div>}
-            {contact.twitter && <div>🐦 Twitter: <a href={contact.twitter} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.twitter}</a></div>}
+            {contact.linkedin && <div>🔗 LinkedIn: <a href={ensureHttps(contact.linkedin)} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.linkedin}</a></div>}
+            {contact.github && <div>💻 GitHub: <a href={ensureHttps(contact.github)} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.github}</a></div>}
+            {contact.portfolio && <div>🌐 Portfolio: <a href={ensureHttps(contact.portfolio)} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.portfolio}</a></div>}
+            {contact.twitter && <div>🐦 Twitter: <a href={ensureHttps(contact.twitter)} target="_blank" rel="noopener noreferrer" className="text-blue-300 hover:underline">{contact.twitter}</a></div>}
           </div>
         </div>
       </div>
